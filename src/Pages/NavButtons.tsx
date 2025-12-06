@@ -1,14 +1,18 @@
+import { useNavigate } from 'react-router';
+
 const NavButtons = () => {
+    const navigate = useNavigate();
+
     return (
         <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">Home</a>
+                <button className="nav-link active" onClick={() => navigate('/')}>Home</button>
             </li>
             <li className="nav-item">
-                <a className="nav-link" href="#">Tickets</a>
+                <button className="nav-link" onClick={() => navigate('/lexicon')}>Lexicon</button>
             </li>
             <li className="nav-item">
-                <a className="nav-link" href="#">Profile</a>
+                <button className="nav-link" onClick={() => navigate('/profile')}>Profile</button>
             </li>
         </ul>
     );

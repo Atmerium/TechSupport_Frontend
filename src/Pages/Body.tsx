@@ -1,15 +1,11 @@
-import React from 'react';
+import { Outlet } from 'react-router';
 
-interface BodyProps {
-    children: React.ReactNode;
-}
-
-const Body: React.FC<BodyProps> = ({ children }) => {
+const Body = () => {
     return (
         <main className="container mt-4 flex-shrink-0">
-            {children}
+            <Outlet />
         </main>
-    );
+    )
 };
 
 export default Body;
