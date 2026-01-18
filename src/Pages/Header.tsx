@@ -1,9 +1,11 @@
 import logo from '/Kép.png';
-import NavButtons from './NavButtons';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
+import { useAuth } from '../Context/AuthContext';
 
 const Header = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const { isLoggedIn, logout } = useAuth();
 
     return (
         <header>
@@ -17,7 +19,31 @@ const Header = () => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
-                        <NavButtons />
+                        <ul className="navbar-nav ms-auto">
+                            <li className="nav-item">
+                                <button className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} onClick={() => navigate('/')}>Home</button>
+                            </li>
+                            <li className="nav-item">
+                                <button className={`nav-link ${location.pathname === '/lexicon' ? 'active' : ''}`} onClick={() => navigate('/lexicon')}>Lexicon</button>
+                            </li>
+                            <li className="nav-item">
+                                <button className={`nav-link ${location.pathname === '/building' ? 'active' : ''}`} onClick={() => navigate('/building')}>Building</button>
+                            </li>
+                            {isLoggedIn ? (
+                                <>
+                                    <li className="nav-item">
+                                        <button className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`} onClick={() => navigate('/profile')}>Profile</button>
+                                    </li>
+                                    <li className="nav-item">
+                                        <button className="nav-link" onClick={() => { logout(); navigate('/'); }}>Logout</button>
+                                    </li>
+                                </>
+                            ) : (
+                                <li className="nav-item">
+                                    <button className={`nav-link ${location.pathname === '/login' ? 'active' : ''}`} onClick={() => navigate('/login')}>Login</button>
+                                </li>
+                            )}
+                        </ul>
                     </div>
                 </div>
             </nav>

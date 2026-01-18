@@ -1,5 +1,3 @@
-import LoginModal from "./LoginModal";
-
 const Welcome = () => {
   return (
     <>
@@ -57,7 +55,6 @@ const Welcome = () => {
             </p>
         </div>
       </div>
-      <LoginModal />
     </>
   );
 };
