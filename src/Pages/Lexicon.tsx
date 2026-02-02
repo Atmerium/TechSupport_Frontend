@@ -1,36 +1,12 @@
+import { useNavigate } from 'react-router';
+import { componentsData } from '../data/componentsData';
+
 const Lexicon = () => {
-    const components = [
-        {
-            id: 1,
-            name: "Processzor (CPU)",
-            description: "A számítógép agya. Az összes számítást és utasítást feldolgozza. A CPU sebessége (GHz-ben mérve) meghatározza, hogy milyen gyorsan dolgozik fel az adatokat."
-        },
-        {
-            id: 2,
-            name: "Memória (RAM)",
-            description: "Az ideiglenes tárolóhely, ahol az aktív programok és adatok kerülnek. Minél több RAM-od van, annál több alkalmazást tudsz egyidejűleg futtatni."
-        },
-        {
-            id: 3,
-            name: "Merevlemez (HDD/SSD)",
-            description: "Az állandó tárolóhely, ahol az operációs rendszer és az összes fájlod tárolódik. Az SSD gyorsabb, mint a hagyományos HDD."
-        },
-        {
-            id: 4,
-            name: "Videokártya (GPU)",
-            description: "A grafikus feldolgozásért felelős alkatrész. Fontos a játékokhoz, videó szerkesztéshez és grafikai munkához."
-        },
-        {
-            id: 5,
-            name: "Alaplapja (Motherboard)",
-            description: "Az összes alkatrészt összeköti. Az alaplapot választva meg, hogy milyen típusú processzort és memóriát tudsz használni."
-        },
-        {
-            id: 6,
-            name: "Tápegység (PSU)",
-            description: "Az elektromos áramot biztosítja a számítógépnek. A wattszáma (W-ban mérve) meghatározza, hogy mekkora terhelést képes elbírni."
-        }
-    ];
+    const navigate = useNavigate();
+
+    const handleCardClick = (id: number) => {
+        navigate(`/lexicon/${id}`);
+    };
 
     return (
         <>
@@ -45,9 +21,13 @@ const Lexicon = () => {
 
             <div className="container">
                 <div className="row">
-                    {components.map((component) => (
+                    {componentsData.map((component) => (
                         <div key={component.id} className="col-md-6 mb-4">
-                            <div className="card h-100">
+                            <div 
+                                className="card h-100" 
+                                style={{ cursor: 'pointer' }}
+                                onClick={() => handleCardClick(component.id)}
+                            >
                                 <div className="card-body">
                                     <h5 className="card-title">{component.name}</h5>
                                     <p className="card-text">{component.description}</p>

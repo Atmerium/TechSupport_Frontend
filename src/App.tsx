@@ -3,6 +3,7 @@ import { Route, Routes, Navigate } from 'react-router';
 import Layout from './Pages/Layout';
 import Welcome from './Pages/Welcome';
 import Lexicon from './Pages/Lexicon';
+import Details from './Pages/Details';
 import Building from './Pages/Building';
 import Login from './Pages/Login';
 import { AuthProvider, useAuth } from './Context/AuthContext';
@@ -32,7 +33,9 @@ function App() {
             </ProtectedRoute>
           } />
           <Route path="lexicon" element={<Lexicon />} />
+          <Route path="lexicon/:id" element={<Details />} />
           <Route path="building" element={<Building />} />
+          <Route path="building/:category" element={<Building />} />
         </Route>
       </Routes>
     </AuthProvider>
