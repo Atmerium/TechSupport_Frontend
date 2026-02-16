@@ -6,10 +6,12 @@ const Lexicon = () => {
   const navigate = useNavigate();
   const [categories, setCategories] = useState<Category[]>([]);
 
+  //Directs to the corresponding Details page
   const handleCardClick = (id: number) => {
     navigate(`/lexicon/${id}`);
   };
 
+  //Gets lexicon from the database
   const fetchLexicon = async () => {
     try {
       const res = await fetch("http://localhost:3000/categories");
@@ -20,10 +22,12 @@ const Lexicon = () => {
     }
   };
 
+  //Runs fetchLexicon() whenever something changes
   useEffect(() => {
     fetchLexicon();
   }, []);
 
+  //Returns the list of categories
   return (
     <>
       <div className="p-3 p-md-5 mb-4 bg-light rounded-3">

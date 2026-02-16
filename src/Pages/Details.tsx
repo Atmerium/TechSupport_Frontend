@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router";
-import { componentsData } from "../data/componentsData";
+//import { componentsData } from "../data/componentsData";
 import { useEffect, useState } from "react";
 import type { Component } from "../Interfaces/ComponentInterface";
 
@@ -8,25 +8,38 @@ const Details = () => {
   const [components, setComponents] = useState<Component[]>([]);
   const navigate = useNavigate();
 
+  //Gets details of component
+  //id is underlined because typscript is stupid
   const fetchDetails = async () => {
     try {
       const res = await fetch("http://localhost:3000/components");
       const data = await res.json();
-      setComponents(data);
+      const array: Component[] = []
+      data.forEach((element: Component) => {
+        if (element.categoryId == parseInt(id)) {
+          array.push(element)
+        }
+      });
+      setComponents(array);
     } catch (error) {
       console.log("Hiba: " + error);
     }
   };
 
+
+  //This ⬇ is unnecesarry due to database
   // Find the component based on the ID from the URL
   // Convert id to number since useParams returns string
-  const component = componentsData.find((c) => c.id === Number(id));
+  //const component = componentsData.find((c) => c.id === Number(id));
 
+  //Runs fetchDetails whenever something changes
   useEffect(() => {
     fetchDetails();
   }, []);
 
-  if (!component) {
+
+  //Checks if there are any components in the category
+  if (components.length == 0) {
     return (
       <div className="container mt-5">
         <div className="alert alert-danger">
@@ -42,6 +55,7 @@ const Details = () => {
     );
   }
 
+  //Returns the components in the category
   return (
     <div className="container mt-5">
       <button
