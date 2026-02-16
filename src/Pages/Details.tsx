@@ -12,14 +12,13 @@ const Details = () => {
     try {
       const res = await fetch("http://localhost:3000/components");
       const data = await res.json();
-      setComponents(data);
+      const filteredData = data.filter((c: Component) => c.categoryId === Number(id));
+      setComponents(filteredData);
     } catch (error) {
       console.log("Hiba: " + error);
     }
   };
 
-  // Find the component based on the ID from the URL
-  // Convert id to number since useParams returns string
   const component = componentsData.find((c) => c.id === Number(id));
 
   useEffect(() => {
