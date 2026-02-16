@@ -5,22 +5,39 @@ import type { Category } from "../Interfaces/CategoryInterdace";
 const Lexicon = () => {
   const navigate = useNavigate();
   const [categories, setCategories] = useState<Category[]>([]);
+  const [search, setSearch] = useState<string>("")
+  const [searched, setSearched] = useState<Category[]>([])
 
   //Directs to the corresponding Details page
   const handleCardClick = (id: number) => {
     navigate(`/lexicon/${id}`);
   };
 
+  
   //Gets lexicon from the database
   const fetchLexicon = async () => {
     try {
       const res = await fetch("http://localhost:3000/categories");
       const data = await res.json();
       setCategories(data);
+      setSearched(categories)
     } catch (error) {
       console.log("Hiba: " + error);
     }
   };
+  
+  //Handles search function
+  const handleSearch = () => {
+    const tempArray: Category[] = []
+    if (search != "" && search != null && search != " ") {
+      categories.forEach(category => {
+        if (category.categoryName.includes(search)) {
+          tempArray.push(category)
+        }
+      });
+    }
+    setSearched(tempArray)
+  }
 
   //Runs fetchLexicon() whenever something changes
   useEffect(() => {
@@ -38,10 +55,14 @@ const Lexicon = () => {
             legfontosabb alkatrészeiről és azok funkcióiról.
           </p>
         </div>
+        <div className="container-fluid py-5">
+          <p className="col-md-8 fs-4">Keresés:</p>
+          <input className="" type="text" value={search} onChange={(e) => { setSearch(e.target.value); handleSearch() }} />
+        </div>
       </div>
       <div className="container">
         <div className="row">
-          {categories.map((category: Category) => (
+          {searched.map((category: Category) => (
             <div key={category.categoryId} className="col-md-6 mb-4">
               <div
                 className="card h-100"

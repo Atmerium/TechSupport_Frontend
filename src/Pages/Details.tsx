@@ -37,7 +37,6 @@ const Details = () => {
     fetchDetails();
   }, []);
 
-
   //Checks if there are any components in the category
   if (components.length == 0) {
     return (
