@@ -21,11 +21,11 @@ const Details = () => {
         }
       });
       setComponents(array);
+
     } catch (error) {
       console.log("Hiba: " + error);
     }
   };
-
 
   //This ⬇ is unnecesarry due to database
   // Find the component based on the ID from the URL
