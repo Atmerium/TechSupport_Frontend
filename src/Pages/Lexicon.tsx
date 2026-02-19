@@ -30,7 +30,7 @@ const Lexicon = () => {
     const tempArray: Category[] = [];
     if (search.trim() != "" && search != null) {
       categories.forEach((category) => {
-        if (category.categoryName.includes(search)) {
+        if (category.categoryName.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
           tempArray.push(category);
         }
       });
@@ -67,20 +67,26 @@ const Lexicon = () => {
       </div>
       <div className="container">
         <div className="row">
-          {searched.map((category: Category) => (
-            <div key={category.categoryId} className="col-md-6 mb-4">
-              <div
-                className="card h-100"
-                style={{ cursor: "pointer" }}
-                onClick={() => handleCardClick(category.categoryId)}
-              >
-                <div className="card-body">
-                  <h5 className="card-title">{category.categoryName}</h5>
-                  <p className="card-text">{category.categoryName}</p>
-                </div>
-              </div>
-            </div>
-          ))}
+          {searched.map((category: Category) => {
+            if (category.categoryVisible != false) {
+              return (
+                <>
+                  <div key={category.categoryId} className="col-md-6 mb-4">
+                    <div
+                      className="card h-100"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleCardClick(category.categoryId)}
+                    >
+                      <div className="card-body">
+                        <h5 className="card-title">{category.categoryName}</h5>
+                        <p className="card-text">{category.categoryName}</p>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              );
+            }
+          })}
         </div>
       </div>
     </>
