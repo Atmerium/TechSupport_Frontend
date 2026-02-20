@@ -1,44 +1,31 @@
 import { useParams, useNavigate } from "react-router";
 //import { componentsData } from "../data/componentsData";
 import { useEffect, useState } from "react";
-import type { Component } from "../Interfaces/ComponentInterface";
+import type { Brand } from "../Interfaces/BrandInterface";
 
 const Details = () => {
   const { id } = useParams<{ id: string }>();
-  const [components, setComponents] = useState<Component[]>([]);
+  const [brands, setComponents] = useState<Brand[]>([]);
   const navigate = useNavigate();
 
-  //Gets details of component
-  //id is underlined because typscript is stupid
   const fetchDetails = async () => {
     try {
-      const res = await fetch("http://localhost:3000/components");
+      const res = await fetch("http://localhost:3000/brands");
       const data = await res.json();
-      const array: Component[] = []
-      data.forEach((element: Component) => {
-        if (element.categoryId == parseInt(id)) {
-          array.push(element)
-        }
-      });
-      setComponents(array);
-
+      const filteredData = data.filter((c: Brand) => c.partId === Number(id));
+      setComponents(filteredData);
     } catch (error) {
       console.log("Hiba: " + error);
     }
   };
 
-  //This ⬇ is unnecesarry due to database
-  // Find the component based on the ID from the URL
-  // Convert id to number since useParams returns string
-  //const component = componentsData.find((c) => c.id === Number(id));
+  const component = brands.find((c) => c.partId === Number(id));
 
-  //Runs fetchDetails whenever something changes
   useEffect(() => {
     fetchDetails();
   }, []);
 
-  //Checks if there are any components in the category
-  if (components.length == 0) {
+  if (!component) {
     return (
       <div className="container mt-5">
         <div className="alert alert-danger">
@@ -54,7 +41,6 @@ const Details = () => {
     );
   }
 
-  //Returns the components in the category
   return (
     <div className="container mt-5">
       <button
@@ -64,17 +50,14 @@ const Details = () => {
         &larr; Vissza a Lexikonhoz
       </button>
 
-      {components.map((component: Component) => (
-        <div className="card" key={component.componentId}>
+      {brands.map((component: Brand) => (
+        <div className="card" key={component.descriptionId}>
           <div className="card-header bg-primary text-white">
-            <h2>{component.componentBrand}</h2>
+            <h2>{component.descriptionBrand }</h2>
           </div>
           <div className="card-body">
-            <h5 className="card-title">Rövid leírás</h5>
-            <p className="card-text mb-4">{component.componentDescription}</p>
-
             <h5 className="card-title">Részletes információ</h5>
-            <p className="card-text">{component.componentDescription}</p>
+            <p className="card-text">{component.dDescription}</p>
           </div>
         </div>
       ))}

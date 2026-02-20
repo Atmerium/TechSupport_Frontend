@@ -1,22 +1,21 @@
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
-import type { Category } from "../Interfaces/CategoryInterdace";
+import type { Part } from "../Interfaces/PartInterdace";
 
 const Lexicon = () => {
   const navigate = useNavigate();
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<Part[]>([]);
   const [search, setSearch] = useState<string>("");
-  const [searched, setSearched] = useState<Category[]>([]);
+  const [searched, setSearched] = useState<Part[]>([]);
 
-  //Directs to the corresponding Details page
   const handleCardClick = (id: number) => {
     navigate(`/lexicon/${id}`);
   };
 
-  //Gets lexicon from the database
+  
   const fetchLexicon = async () => {
     try {
-      const res = await fetch("http://localhost:3000/categories");
+      const res = await fetch("http://localhost:3000/parts");
       const data = await res.json();
       setCategories(data);
       setSearched(data);
@@ -25,32 +24,32 @@ const Lexicon = () => {
     }
   };
 
-  //Handles search function
-  const handleSearch = async () => {
-    const tempArray: Category[] = [];
-    if (search.trim() != "" && search != null) {
-      categories.forEach((category) => {
-        if (category.categoryName.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
-          tempArray.push(category);
-        }
-      });
+  const handleSearch = () => {
+    if (search.trim() === "") {
+      setSearched(categories);
+    } else {
+      const tempArray = categories.filter((part) =>
+        part.partName.toLowerCase().includes(search.toLowerCase())
+      );
       setSearched(tempArray);
     }
   };
 
-  //Runs fetchLexicon() whenever something changes
+  useEffect(() => {
+    handleSearch();
+  }, [search, categories]);
+
   useEffect(() => {
     fetchLexicon();
   }, []);
 
-  //Returns the list of categories
   return (
     <>
       <div className="p-3 p-md-5 mb-4 bg-light rounded-3">
         <div className="container-fluid py-5">
           <h1 className="display-5 fw-bold">Lexikon</h1>
           <p className="col-md-8 fs-4">
-            Ebben a szakaszban megtalálsz egy részletes szótárat a számítógépek
+            Ebben a szakaszban megtalálsz egy részletes leíratot a számítógépek
             legfontosabb alkatrészeiről és azok funkcióiról.
           </p>
         </div>
@@ -60,26 +59,25 @@ const Lexicon = () => {
             type="text"
             placeholder="⌕Keresés..."
             value={search}
-            onInputCapture={(e) => setSearch(e.target.value)}
-            onChange={handleSearch}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </div>
       </div>
       <div className="container">
         <div className="row">
-          {searched.map((category: Category) => {
-            if (category.categoryVisible != false) {
+          {searched.map((part: Part) => {
+            if (part.partVisible != false) {
               return (
                 <>
-                  <div key={category.categoryId} className="col-md-6 mb-4">
+                  <div key={part.partId} className="col-md-6 mb-4">
                     <div
                       className="card h-100"
                       style={{ cursor: "pointer" }}
-                      onClick={() => handleCardClick(category.categoryId)}
+                      onClick={() => handleCardClick(part.partId)}
                     >
                       <div className="card-body">
-                        <h5 className="card-title">{category.categoryName}</h5>
-                        <p className="card-text">{category.categoryName}</p>
+                        <h5 className="card-title">{part.partName}</h5>
+                        <p className="card-text">{part.partDescription}</p>
                       </div>
                     </div>
                   </div>
