@@ -45,7 +45,7 @@ const Lexicon = () => {
 
   return (
     <>
-      <div className="p-3 p-md-5 mb-4 bg-light rounded-3">
+      <div className="p-3 p-md-5 mb-4 bg-light border-secondary rounded">
         <div className="container-fluid py-5">
           <h1 className="display-5 fw-bold">Lexikon</h1>
           <p className="col-md-8 fs-4">
@@ -69,13 +69,13 @@ const Lexicon = () => {
             if (part.partVisible != false) {
               return (
                 <>
-                  <div key={part.partId} className="col-md-6 mb-4">
+                  <div key={part.partId} className="col-md-6 mb-4 border bg-light border-secondary rounded">
                     <div
-                      className="card h-100"
+                      className="card h-100 bg-light border-0"
                       style={{ cursor: "pointer" }}
                       onClick={() => handleCardClick(part.partId)}
                     >
-                      <div className="card-body">
+                      <div className="card-body bg-light">
                         <h5 className="card-title">{part.partName}</h5>
                         <p className="card-text">{part.partDescription}</p>
                       </div>

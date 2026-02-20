@@ -1,7 +1,7 @@
 export interface Brand {
-    descriptionId: number
-    descriptionBrand: string
-    dDescription: string
+    brandId: number
+    brandName: string
+    brandDescription: string
     partId: number
-    descriptionVisible: boolean
+    brandVisible: boolean
 }

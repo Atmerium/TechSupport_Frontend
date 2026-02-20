@@ -51,13 +51,13 @@ const Details = () => {
       </button>
 
       {brands.map((component: Brand) => (
-        <div className="card" key={component.descriptionId}>
-          <div className="card-header bg-primary text-white">
-            <h2>{component.descriptionBrand }</h2>
+        <div className="card mb-4" key={component.brandId}>
+          <div className="card-header bg-secondary text-white">
+            <h2>{component.brandName }</h2>
           </div>
           <div className="card-body">
-            <h5 className="card-title">Részletes információ</h5>
-            <p className="card-text">{component.dDescription}</p>
+            <h5 className="card-title">Márka információ:</h5>
+            <p className="card-text">{component.brandDescription}</p>
           </div>
         </div>
       ))}
