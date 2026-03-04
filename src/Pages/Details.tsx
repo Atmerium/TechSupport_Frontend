@@ -1,5 +1,4 @@
 import { useParams, useNavigate } from "react-router";
-//import { componentsData } from "../data/componentsData";
 import { useEffect, useState } from "react";
 import type { Brand } from "../Interfaces/BrandInterface";
 

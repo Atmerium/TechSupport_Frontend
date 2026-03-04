@@ -3,4 +3,6 @@ export interface Build {
     buildName : string
     buildDescription : string
     buildVisible : boolean
+    buildCategory : number
+    buildClass : number
 }
