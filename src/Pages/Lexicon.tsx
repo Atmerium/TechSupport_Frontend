@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
-import type { Part } from "../Interfaces/PartInterdace";
+import type { Part } from "../Interfaces/PartInterface";
 
 const Lexicon = () => {
   const navigate = useNavigate();
