@@ -36,18 +36,23 @@ const Login = () => {
       }
     } else if (!isLoginView) {
       try {
-        const res = await fetch("http://localhost:3000/users", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            userEmail: loginRegForm.userEmail,
-            userName: loginRegForm.userName,
-            userPassword: loginRegForm.userPassword,
-          }),
-        });
-        if (res.ok) {
-          login();
-          navigate("/profile");
+        if (loginRegForm.userPassword == loginRegForm.userConfirmPassword) {
+          const res = await fetch("http://localhost:3000/users", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              userEmail: loginRegForm.userEmail,
+              userName: loginRegForm.userName,
+              userPassword: loginRegForm.userPassword,
+            }),
+          });
+          if (res.ok) {
+            login();
+            navigate("/profile");
+          }
+        }
+        else {
+          alert("Hibásan megadott jelszó")
         }
       } catch (error) {
         alert(error);
@@ -85,7 +90,7 @@ const Login = () => {
                 {!isLoginView && (
                   <div className="mb-3">
                     <label className="form-label">
-                      {isLoginView ? "Email vagy felhasználónév" : ""}
+                      Email
                     </label>
                     <input
                       type="email"
@@ -104,7 +109,7 @@ const Login = () => {
                 {isLoginView && (
                   <div className="mb-3">
                     <label className="form-label">
-                      {isLoginView ? "Email vagy felhasználónév" : ""}
+                      Email vagy felhasználónév
                     </label>
                     <input
                       type="text"
