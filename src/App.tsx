@@ -10,6 +10,8 @@ import { AuthProvider, useAuth } from './Context/AuthContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import type { JSX } from 'react';
+import Profile from './Pages/Profile';
+import { useCookies } from 'react-cookie';
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
     const { isLoggedIn } = useAuth();
@@ -19,27 +21,40 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
     return children;
 };
 
-function App() {
+const AppRoutes = () => {
+  const { isLoggedIn } = useAuth();
+  const [cookies] = useCookies(['user']);
+  const userCookie = cookies.user;
+  const cookieName = typeof userCookie === 'string'
+    ? userCookie
+    : userCookie?.username || userCookie?.userName;
+  const userName = isLoggedIn ? (cookieName || 'Látogató') : 'Látogató';
   
   return (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Welcome userName={userName} />} />
+        <Route path="login" element={<Login />} />
+        <Route path="profile" element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } />
+        <Route path="lexicon" element={<Lexicon />} />
+        <Route path="lexicon/:id" element={<Details />} />
+        <Route path="building" element={<Building />} />
+        <Route path="building/:category" element={<Building />} />
+      </Route>
+    </Routes>
+  );
+};
+
+function App() {
+  return (
     <AuthProvider>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Welcome />}/>
-          <Route path="login" element={<Login />} />
-          <Route path="profile" element={
-            <ProtectedRoute>
-              <div className="p-5"><h2>Profile Page</h2><p>Your profile information will be displayed here.</p></div>
-            </ProtectedRoute>
-          } />
-          <Route path="lexicon" element={<Lexicon />} />
-          <Route path="lexicon/:id" element={<Details />} />
-          <Route path="building" element={<Building />} />
-          <Route path="building/:category" element={<Building />} />
-        </Route>
-      </Routes>
+      <AppRoutes />
     </AuthProvider>
-  )
+  );
 }
 
 export default App

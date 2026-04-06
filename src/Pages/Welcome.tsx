@@ -1,10 +1,15 @@
-const Welcome = () => {
+interface WelcomeProps {
+  userName: string;
+}
+
+const Welcome = ({ userName }: WelcomeProps) => {
+  
   return (
     <>
       <div className="p-3 p-md-5 mb-4 bg-light rounded-3">
         <div className="container-fluid py-5">
           <h1 className="display-5 fw-bold">
-            Üdvözöllek a TechSupport oldalán
+            Üdvözöllek a TechSupport oldalán {userName}!  
           </h1>
           <p className="col-md-8 fs-4">
             Ez az oldal segít abban ha nem tudod miből áll egy modern

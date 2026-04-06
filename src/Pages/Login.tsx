@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import type { User } from "../Interfaces/UserInterface";
 import { useAuth } from "../Context/AuthContext";
+import { useCookies } from "react-cookie";
 
 const Login = () => {
   const [isLoginView, setIsLoginView] = useState(true);
   const { login } = useAuth();
+  const [, setCookie] = useCookies(["user"]);
   const [loginRegForm, setLoginRegForm] = useState<User>({
     userName: "",
     userEmail: "",
@@ -28,6 +30,10 @@ const Login = () => {
           }),
         });
         if (res.ok) {
+          const data = await res.json().catch(() => null);
+          const cookieUserName =
+            data?.user?.userName || data?.userName || loginRegForm.userEmail;
+          setCookie("user", { userName: cookieUserName }, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
           login();
           navigate("/profile");
         }
@@ -47,6 +53,7 @@ const Login = () => {
             }),
           });
           if (res.ok) {
+            setCookie("user", { userName: loginRegForm.userName }, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
             login();
             navigate("/profile");
           }
