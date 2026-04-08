@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState} from 'react';
+import type { ReactNode } from 'react';
 
 interface AuthContextType {
     isLoggedIn: boolean;
@@ -9,10 +10,10 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
 
-    const login = () => setIsLoggedIn(true);
-    const logout = () => setIsLoggedIn(false);
+    const login = () => {setIsLoggedIn(true); localStorage.setItem('isLoggedIn', 'true');};
+    const logout = () => {setIsLoggedIn(false); localStorage.removeItem('isLoggedIn');};
 
     return (
         <AuthContext.Provider value={{ isLoggedIn, login, logout }}>

@@ -138,7 +138,7 @@ const Building = () => {
                             ) : (
                                 <div className="alert alert-warning text-center">
                                     Nem található ilyen összeállítás az adatbázisban. 
-                                    (Kategória: {selectedCategory}, Szint: {selectedClass})
+                                    {/* Kategória: {selectedCategory}, Szint: {selectedClass} */}
                                 </div>
                             )}
                         </div>
