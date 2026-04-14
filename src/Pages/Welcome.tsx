@@ -6,7 +6,7 @@ const Welcome = ({ userName }: WelcomeProps) => {
   
   return (
     <>
-      <div className="p-3 p-md-5 mb-4 bg-light rounded-3">
+      <div className="p-3 p-md-5 mb-4 bg-body-tertiary rounded-3">
         <div className="container-fluid py-5">
           <h1 className="display-5 fw-bold">
             Üdvözöllek a TechSupport oldalán {userName}!  
@@ -39,7 +39,7 @@ const Welcome = ({ userName }: WelcomeProps) => {
           </p>
         </div>
       </div>
-      <div className="mb-4 p-4 bg-light rounded-3">
+      <div className="mb-4 p-4 bg-body-tertiary rounded-3">
         <div className="container-fluid py-5">
             <h1 className="display-5 fw-bold">Csapatunkról:</h1>
             <p className="col-md-8 fs-4">

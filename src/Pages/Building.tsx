@@ -106,7 +106,7 @@ const Building = () => {
             <div className="row justify-content-center">
                 <div className="col-md-10">
                     <div className="card shadow border-0">
-                        <div className="card-header bg-light">
+                        <div className="card-header bg-body-tertiary">
                             <h5 className="mb-0">Kiválasztott konfiguráció leírása</h5>
                         </div>
                         <div className="card-body p-4" style={{ minHeight: '200px' }}>
@@ -123,7 +123,7 @@ const Building = () => {
                                     <h3 className="card-title text-primary fw-bold mb-3">
                                         {selectedBuild.buildName}
                                     </h3>
-                                    <div className="p-3 bg-light rounded border">
+                                    <div className="p-3 bg-body-tertiary rounded border">
                                         <p className="card-text fs-5" style={{ whiteSpace: 'pre-line', lineHeight: '1.6' }}>
                                             {selectedBuild.buildDescription}
                                         </p>

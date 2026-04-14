@@ -12,6 +12,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import type { JSX } from 'react';
 import Profile from './Pages/Profile';
 import { useCookies } from 'react-cookie';
+import { ThemeProvider } from './Context/ThemeContext';
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
     const { isLoggedIn } = useAuth();
@@ -51,9 +52,11 @@ const AppRoutes = () => {
 
 function App() {
   return (
-    <AuthProvider>
-      <AppRoutes />
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 
