@@ -5,6 +5,7 @@ import Welcome from './Pages/Welcome';
 import Lexicon from './Pages/Lexicon';
 import Details from './Pages/Details';
 import Building from './Pages/Building';
+import Comments from './Pages/Comments';
 import Login from './Pages/Login';
 import { AuthProvider, useAuth } from './Context/AuthContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -45,6 +46,7 @@ const AppRoutes = () => {
         <Route path="lexicon/:id" element={<Details />} />
         <Route path="building" element={<Building />} />
         <Route path="building/:category" element={<Building />} />
+        <Route path="comments/:buildId" element={<Comments />} />
       </Route>
     </Routes>
   );

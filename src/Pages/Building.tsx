@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import type { Build } from '../Interfaces/BuildsInterface';
+import { useNavigate } from 'react-router';
 
 const Building = () => {
+    const navigate = useNavigate();
     const [builds, setBuilds] = useState<Build[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -134,6 +136,11 @@ const Building = () => {
                                             Szint: {classes.find(c => c.id === selectedBuild.buildClass)?.label}
                                         </small>
                                     </div>
+                                    <button 
+                                        className="btn btn-primary mt-3"
+                                        onClick={() => navigate(`/comments/${selectedBuild.buildId}`)}>
+                                        Megjelenítés
+                                    </button>
                                 </div>
                             ) : (
                                 <div className="alert alert-warning text-center">

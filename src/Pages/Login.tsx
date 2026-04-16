@@ -33,7 +33,8 @@ const Login = () => {
           const data = await res.json().catch(() => null);
           const cookieUserName =
             data?.user?.userName || data?.userName || loginRegForm.userEmail;
-          setCookie("user", { userName: cookieUserName }, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
+          const cookieUserId = data?.user?.userId || data?.userId;
+          setCookie("user", { userName: cookieUserName, userId: cookieUserId }, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
           login();
           navigate("/profile");
         }
@@ -53,7 +54,8 @@ const Login = () => {
             }),
           });
           if (res.ok) {
-            setCookie("user", { userName: loginRegForm.userName }, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
+            const data = await res.json();
+            setCookie("user", { userName: data.userName, userId: data.userId }, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
             login();
             navigate("/profile");
           }

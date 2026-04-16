@@ -4,5 +4,5 @@ export interface Comment {
     commentVisible: boolean;
     commentDate: string;
     userId: number;
-    partId: number;
+    buildId: number;
 }
