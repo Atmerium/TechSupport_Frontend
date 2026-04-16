@@ -31,10 +31,7 @@ const Login = () => {
         });
         if (res.ok) {
           const data = await res.json().catch(() => null);
-          const cookieUserName =
-            data?.user?.userName || data?.userName || loginRegForm.userEmail;
-          const cookieUserId = data?.user?.userId || data?.userId;
-          setCookie("user", { userName: cookieUserName, userId: cookieUserId }, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
+          setCookie("user", { userName: data.userName, userEmail: data.userEmail, userId: data.userId }, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
           login();
           navigate("/profile");
         }
