@@ -1,11 +1,10 @@
 interface ProfileProps {
   userName: string;
-  userId: number;
   userEmail: string;
 }
 
 
-const Profile = ({ userName, userId, userEmail }: ProfileProps) => {
+const Profile = ({ userName, userEmail }: ProfileProps) => {
   return (
     <div>
       <h1 className="display-5 fw-bold">Személyes adatok:</h1>

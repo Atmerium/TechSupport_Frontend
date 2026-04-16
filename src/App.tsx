@@ -39,7 +39,7 @@ const AppRoutes = () => {
         <Route path="login" element={<Login />} />
         <Route path="profile" element={
           <ProtectedRoute>
-            <Profile userName={userName} userId={userCookie?.userId} userEmail={userCookie?.userEmail} />
+            <Profile userName={userName} userEmail={userCookie?.userEmail} />
           </ProtectedRoute>
         } />
         <Route path="lexicon" element={<Lexicon />} />
