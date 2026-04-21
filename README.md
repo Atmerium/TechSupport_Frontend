@@ -17,5 +17,5 @@ Ez lenne a rendszer felállítás a frontend-hez.
 
 ## Funkciók
 
-A frontend funkcióinak a leírása és képi megjelenítése az alábbi [linken] érheted el. (https://github.com/Atmerium/TechSupport_Frontend/wiki)
+A frontend funkcióinak a leírása és képi megjelenítése az alábbi [linken](https://github.com/Atmerium/TechSupport_Frontend/wiki) érheted el.
 
