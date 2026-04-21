@@ -23,26 +23,26 @@ const Header = () => {
                     <div className="collapse navbar-collapse" id="navbarNav" >
                         <ul className="navbar-nav ms-auto">
                             <li className="nav-item">
-                                <button className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} onClick={() => navigate('/')}>Home</button>
+                                <button className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} onClick={() => navigate('/')}>Főoldal</button>
                             </li>
                             <li className="nav-item">
                                 <button className={`nav-link ${location.pathname === '/lexicon' ? 'active' : ''}`} onClick={() => navigate('/lexicon')}>Lexicon</button>
                             </li>
                             <li className="nav-item">
-                                <button className={`nav-link ${location.pathname === '/building' ? 'active' : ''}`} onClick={() => navigate('/building')}>Building</button>
+                                <button className={`nav-link ${location.pathname === '/building' ? 'active' : ''}`} onClick={() => navigate('/building')}>Gép Összeállítás</button>
                             </li>
                             {isLoggedIn ? (
                                 <>
                                     <li className="nav-item">
-                                        <button className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`} onClick={() => navigate('/profile')}>Profile</button>
+                                        <button className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`} onClick={() => navigate('/profile')}>Profil</button>
                                     </li>
                                     <li className="nav-item">
-                                        <button className="nav-link" onClick={() => { logout(); navigate('/'); }}>Logout</button>
+                                        <button className="nav-link" onClick={() => { logout(); navigate('/'); }}>Kijelentkezés</button>
                                     </li>
                                 </>
                             ) : (
                                 <li className="nav-item">
-                                    <button className={`nav-link ${location.pathname === '/login' ? 'active' : ''}`} onClick={() => navigate('/login')}>Login</button>
+                                    <button className={`nav-link ${location.pathname === '/login' ? 'active' : ''}`} onClick={() => navigate('/login')}>Bejelentkezés</button>
                                 </li>
                             )}
                         </ul>

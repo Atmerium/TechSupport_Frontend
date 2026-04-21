@@ -6,6 +6,7 @@ import { useCookies } from "react-cookie";
 
 const Login = () => {
   const [isLoginView, setIsLoginView] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const { login } = useAuth();
   const [, setCookie] = useCookies(["user"]);
   const [loginRegForm, setLoginRegForm] = useState<User>({
@@ -18,6 +19,7 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
 
     if (isLoginView) {
       try {
@@ -31,16 +33,25 @@ const Login = () => {
         });
         if (res.ok) {
           const data = await res.json().catch(() => null);
-          setCookie("user", { userName: data.userName, userEmail: data.userEmail, userId: data.userId }, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
+          setCookie("user", { userName: data.userName, userEmail: data.userEmail, userId: data.id, token: data.token }, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
           login();
           navigate("/profile");
+        } else {
+          const errorData = await res.json().catch(() => ({ message: "Bejelentkezés sikertelen" }));
+          if (errorData.message === "Invalid email/username") {
+            setError("Helytelen email vagy felhasználónév");
+          } else if (errorData.message === "Invalid password") {
+            setError("Helytelen jelszó");
+          } else {
+            setError(errorData.message || "Bejelentkezés sikertelen");
+          }
         }
       } catch (error) {
-        alert(error);
+        setError(error instanceof Error ? error.message : "Ismeretlen hiba történt a bejelentkezéskor.");
       }
     } else if (!isLoginView) {
       try {
-        if (loginRegForm.userPassword == loginRegForm.userConfirmPassword) {
+        if (loginRegForm.userPassword === loginRegForm.userConfirmPassword) {
           const res = await fetch("http://localhost:3000/users", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -55,13 +66,23 @@ const Login = () => {
             setCookie("user", { userName: data.userName, userId: data.userId }, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
             login();
             navigate("/profile");
+          } else {
+            const errorData = await res.json().catch(() => ({ message: "Regisztráció sikertelen" }));
+            
+            if (Array.isArray(errorData.message)) {
+              setError(errorData.message.join(", "));
+            } else if (errorData.statusCode === 500 || errorData.message === "Internal server error") {
+              setError("A felhasználónév vagy email már foglalt lehet.");
+            } else {
+              setError(errorData.message || "Regisztráció sikertelen");
+            }
           }
         }
         else {
-          alert("Hibásan megadott jelszó")
+          setError("A megadott jelszavak nem egyeznek.");
         }
       } catch (error) {
-        alert(error);
+        setError(error instanceof Error ? error.message : "Ismeretlen hiba történt a regisztrációkor.");
       }
     }
   };
@@ -75,6 +96,11 @@ const Login = () => {
               <h2 className="text-center mb-4">
                 {isLoginView ? "Bejelentkezés" : "Regisztráció"}
               </h2>
+              {error && (
+                <div className="alert alert-danger" role="alert">
+                  {error}
+                </div>
+              )}
               <form onSubmit={handleSubmit}>
                 {!isLoginView && (
                   <div className="mb-3">
@@ -172,8 +198,12 @@ const Login = () => {
               </form>
               <div className="text-center mt-3">
                 <button
+                  type="button"
                   className="btn btn-link text-decoration-none"
-                  onClick={() => setIsLoginView(!isLoginView)}
+                  onClick={() => {
+                    setIsLoginView(!isLoginView);
+                    setError(null);
+                  }}
                 >
                   {isLoginView
                     ? "Nincs még fiókod? Regisztrálj!"

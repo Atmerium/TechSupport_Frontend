@@ -13,6 +13,7 @@ const Comments = () => {
     const navigate = useNavigate();
 
     const [comments, setComments] = useState<Comment[]>([]);
+    const [userNames, setUserNames] = useState<Record<number, string>>({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -34,6 +35,23 @@ const Comments = () => {
 
             const filteredComments = data.filter((comment: Comment) => comment.buildId === Number(buildId));
             setComments(filteredComments);
+
+            const uniqueUserIds = Array.from(new Set(filteredComments.map((c: Comment) => c.userId)));
+            const namesMap: Record<number, string> = {};
+            
+            await Promise.all(uniqueUserIds.map(async (id) => {
+                try {
+                    const userRes = await fetch(`http://localhost:3000/users/${id}`);
+                    if (userRes.ok) {
+                        const userData = await userRes.json();
+                        namesMap[id as number] = userData.userName;
+                    }
+                } catch (e) {
+                    console.error(`Nem sikerült betölteni a ${id} azonosítójú felhasználót`, e);
+                }
+            }));
+            
+            setUserNames(namesMap);
         } catch (err) {
             console.error(err);
             setError(err instanceof Error ? err.message : 'An error occurred');
@@ -44,10 +62,8 @@ const Comments = () => {
         if (!newComment.trim()) return;
 
         const newCommentPayload = {
-            commentText: newComment,
-            commentDate: new Date().toISOString(),
-            commentVisible: true,
-            userId: cookies.user?.userId,
+            commentContent: newComment,
+            userId: Number(cookies.user?.userId),
             buildId: Number(buildId)
         };
 
@@ -55,20 +71,23 @@ const Comments = () => {
             const response = await fetch('http://localhost:3000/comments', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${cookies.user?.token}`
                 },
                 body: JSON.stringify(newCommentPayload)
             });
 
             if (!response.ok) {
-                throw new Error('Failed to post comment');
+                const errorData = await response.json().catch(() => ({ message: 'Ismeretlen hálózati hiba' }));
+                const errorMsg = Array.isArray(errorData.message) ? errorData.message.join(', ') : errorData.message;
+                throw new Error(errorMsg || 'Failed to post comment');
             }
 
             setNewComment("");
             await loadComments();
         } catch (err) {
             console.error('Error posting comment:', err);
-            alert("Sikertelen beküldés. Kérjük ellenőrizze az API kapcsolatát!");
+            alert(`Sikertelen beküldés: ${err instanceof Error ? err.message : 'Ellenőrizze az API kapcsolatot!'}`);
         }
     };
 
@@ -102,9 +121,9 @@ const Comments = () => {
                             <div key={comment.commentId} className="col-12 mb-3">
                                 <div className="card shadow-sm border-0">
                                     <div className="card-body bg-body-tertiary rounded">
-                                        <p className="card-text fs-5">{comment.commentText}</p>
+                                        <p className="card-text fs-5">{comment.commentContent}</p>
                                         <div className="text-end text-muted small mt-2">
-                                            <span>Felhasználó ID: {comment.userId}</span>
+                                            <span>Felhasználó: {userNames[comment.userId]}</span>
                                             <span className="ms-3">| Dátum: {new Date(comment.commentDate).toLocaleDateString()}</span>
                                         </div>
                                     </div>

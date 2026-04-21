@@ -1,6 +1,6 @@
 export interface Comment {
     commentId: number;
-    commentText: string;
+    commentContent: string;
     commentVisible: boolean;
     commentDate: string;
     userId: number;

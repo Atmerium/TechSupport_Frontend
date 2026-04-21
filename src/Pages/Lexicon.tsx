@@ -69,9 +69,9 @@ const Lexicon = () => {
             if (part.partVisible != false) {
               return (
                 <>
-                  <div key={part.partId} className="col-md-6 mb-4 border bg-body-tertiary border-secondary rounded">
+                  <div key={part.partId} className="col-md-6 mb-3">
                     <div
-                      className="card h-100 bg-body-tertiary border-0"
+                      className="card h-100 bg-body-tertiary border border-secondary rounded"
                       style={{ cursor: "pointer" }}
                       onClick={() => handleCardClick(part.partId)}
                     >
