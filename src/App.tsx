@@ -25,13 +25,19 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
 
 const AppRoutes = () => {
   const { isLoggedIn } = useAuth();
-  const [cookies] = useCookies(['user']);
+  const [cookies, setCookie] = useCookies(['user']);
   const userCookie = cookies.user;
   const cookieName = typeof userCookie === 'string'
     ? userCookie
     : userCookie?.username || userCookie?.userName;
   const userName = isLoggedIn ? (cookieName || 'Látogató') : 'Látogató';
   
+  const handleUpdateSuccess = (newName: string, newEmail: string) => {
+    if (userCookie && typeof userCookie === 'object') {
+      setCookie("user", { ...userCookie, userName: newName, userEmail: newEmail }, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
+    }
+  };
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -39,7 +45,13 @@ const AppRoutes = () => {
         <Route path="login" element={<Login />} />
         <Route path="profile" element={
           <ProtectedRoute>
-            <Profile userName={userName} userEmail={userCookie?.userEmail} />
+            <Profile 
+              token={userCookie?.token} 
+              userId={userCookie?.userId} 
+              userName={userName} 
+              userEmail={userCookie?.userEmail} 
+              onUpdateSuccess={handleUpdateSuccess} 
+            />
           </ProtectedRoute>
         } />
         <Route path="lexicon" element={<Lexicon />} />

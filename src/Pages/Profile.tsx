@@ -41,8 +41,8 @@ const Profile = ({ userId, token, userName, userEmail, onUpdateSuccess }: Profil
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-          name: currentName,
-          email: currentEmail
+          userName: currentName,
+          userEmail: currentEmail
         })
       });
 
@@ -50,8 +50,27 @@ const Profile = ({ userId, token, userName, userEmail, onUpdateSuccess }: Profil
         throw new Error('Hiba történt az adatok mentése során!');
       }
 
+      const fetchResponse = await fetch(`http://localhost:3000/users/${userId}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!fetchResponse.ok) {
+         throw new Error('Sikeres mentés, de nem sikerült letölteni a friss adatokat!');
+      }
+
+      const updatedUser = await fetchResponse.json();
+      
+      const fetchedName = updatedUser.userName || updatedUser.name || currentName;
+      const fetchedEmail = updatedUser.userEmail || updatedUser.email || currentEmail;
+
+      setCurrentName(fetchedName);
+      setCurrentEmail(fetchedEmail);
+
       if (onUpdateSuccess) {
-        onUpdateSuccess(currentName, currentEmail);
+        onUpdateSuccess(fetchedName, fetchedEmail);
       }
     } catch (err: any) {
       setError(err.message);
