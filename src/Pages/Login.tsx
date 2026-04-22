@@ -69,7 +69,7 @@ const Login = () => {
           });
           if (res.ok) {
             const data = await res.json();
-            setCookie("user", { userName: data.userName, id: data.userId }, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
+            setCookie("user", { userName: data.userName, id: data.id }, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
             login();
             navigate("/profile");
           } else {

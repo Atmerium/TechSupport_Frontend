@@ -231,8 +231,9 @@ const Profile = ({ id, token, userName, userEmail, role, onUpdateSuccess }: Prof
                 <tbody>
                   {usersList.length > 0 ? (
                     usersList.map((user) => {
-                      const currentUserId = user.id;
-                      if (currentUserId === Number(id)) {
+                      const currentUserId = (user as any).userId; 
+                      const currentUser = String(currentUserId) === String(id);
+                      if (currentUser) {
                         return (
                           <tr key={currentUserId}>
                           <td className="fw-medium">{user.userName}</td>
