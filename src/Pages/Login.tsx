@@ -33,7 +33,13 @@ const Login = () => {
         });
         if (res.ok) {
           const data = await res.json().catch(() => null);
-          setCookie("user", { userName: data.userName, userEmail: data.userEmail, userId: data.id, token: data.token }, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
+          setCookie("user", { 
+            userName: data.userName, 
+            userEmail: data.userEmail, 
+            id: data.id, 
+            token: data.token, 
+            role: data.role 
+          }, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
           login();
           navigate("/profile");
         } else {
@@ -63,7 +69,7 @@ const Login = () => {
           });
           if (res.ok) {
             const data = await res.json();
-            setCookie("user", { userName: data.userName, userId: data.userId }, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
+            setCookie("user", { userName: data.userName, id: data.userId }, { path: "/", maxAge: 60 * 60 * 24 * 7, sameSite: "lax" });
             login();
             navigate("/profile");
           } else {

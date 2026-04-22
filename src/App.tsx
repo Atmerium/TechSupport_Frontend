@@ -29,7 +29,7 @@ const AppRoutes = () => {
   const userCookie = cookies.user;
   const cookieName = typeof userCookie === 'string'
     ? userCookie
-    : userCookie?.username || userCookie?.userName;
+    : userCookie?.userName;
   const userName = isLoggedIn ? (cookieName || 'Látogató') : 'Látogató';
   
   const handleUpdateSuccess = (newName: string, newEmail: string) => {
@@ -46,8 +46,9 @@ const AppRoutes = () => {
         <Route path="profile" element={
           <ProtectedRoute>
             <Profile 
+              role={userCookie?.role}
               token={userCookie?.token} 
-              userId={userCookie?.userId} 
+              id={userCookie?.id} 
               userName={userName} 
               userEmail={userCookie?.userEmail} 
               onUpdateSuccess={handleUpdateSuccess} 
