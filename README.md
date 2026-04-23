@@ -1,4 +1,5 @@
 # TechSupport Frontend
+Frontend repo a TechSupport-hoz
 
 ## Telepítési út mutató
 
