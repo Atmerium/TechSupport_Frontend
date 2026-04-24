@@ -20,3 +20,27 @@ Ez lenne a rendszer felállítás a frontend-hez.
 
 A frontend funkcióinak a leírása és képi megjelenítése az alábbi [linken](https://github.com/Atmerium/TechSupport_Frontend/wiki) érheted el.
 
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# TechSupport Frontend
+Frontend repo for TechSupport
+
+## Installation Guide
+
+After downloading and extracting the ZIP file, open it using Visual Studio Code. Also, open a terminal there using Ctrl + ` and run the following code:
+
+```bash
+$ npm install
+```
+
+After this, start the database hosting, then start the backend. Once these are ready, run the following code to start the frontend hosting:
+
+```bash
+$ npm run dev
+```
+
+This is the system setup for the frontend.
+
+Features
+The description and visual representation of the frontend features can be found at the following [link](https://github.com/Atmerium/TechSupport_Frontend/wiki).
