@@ -29,7 +29,7 @@ const Header = () => {
                                 <button className={`nav-link ${location.pathname === '/lexicon' ? 'active' : ''}`} onClick={() => navigate('/lexicon')}>Lexikon</button>
                             </li>
                             <li className="nav-item">
-                                <button className={`nav-link ${location.pathname === '/building' ? 'active' : ''}`} onClick={() => navigate('/building')}>GépÖsszeállítás</button>
+                                <button className={`nav-link ${location.pathname === '/building' ? 'active' : ''}`} onClick={() => navigate('/building')}>Gépösszeállítás</button>
                             </li>
                             {isLoggedIn ? (
                                 <>

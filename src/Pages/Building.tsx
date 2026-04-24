@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { Build } from '../Interfaces/BuildsInterface';
 import { useNavigate } from 'react-router';
+import { useTheme } from '../Context/ThemeContext';
 
 const Building = () => {
     const navigate = useNavigate();
@@ -55,12 +56,14 @@ const Building = () => {
         return <div className="container mt-5 alert alert-danger">Hiba: {error}</div>;
     }
 
+    const { theme } = useTheme();
+
     return (
-        <div className="container mt-4 p-4 rounded shadow" style={{ backgroundColor: '#767c88', color: 'white' }}>
+        <div className="container mt-4 p-4 rounded shadow bg-body-tertiary animate-in fade-in">
             <h2 className="mb-4 text-center">Számítógép Összeállítás</h2>
             <div className="row justify-content-center mb-5">
                 <div className="col-md-8">
-                    <h4 className="text-center mb-3">Válassz felhasználási területet:</h4>
+                    <h4 className="text-center mb-3 text-light">Válassz felhasználási területet:</h4>
                     <div className="d-flex justify-content-center gap-3">
                         {categories.map((cat) => (
                             <button
@@ -69,10 +72,10 @@ const Building = () => {
                                     setSelectedCategory(cat.id);
                                     setSelectedClass(null);
                                 }}
-                                className={`btn btn-lg px-5 py-3 ${
+                                className={`btn btn-lg px-5 py-3 fw-bold ${
                                     selectedCategory === cat.id 
                                     ? 'btn-primary shadow-lg' 
-                                    : 'btn-outline-primary'
+                                    : (theme === 'dark' ? 'btn-secondary' : 'btn-outline-primary') 
                                 }`}
                             >
                                 {cat.label}
@@ -85,16 +88,16 @@ const Building = () => {
             {selectedCategory && (
                 <div className="row justify-content-center mb-5 animate-in fade-in">
                     <div className="col-md-8">
-                        <h4 className="text-center mb-3">Válassz teljesítményszintet:</h4>
+                        <h4 className="text-center mb-3 text-light">Válassz teljesítményszintet:</h4>
                         <div className="d-flex justify-content-center flex-wrap gap-2">
                             {classes.map((cls) => (
                                 <button
                                     key={cls.id}
                                     onClick={() => setSelectedClass(cls.id)}
-                                    className={`btn ${
+                                    className={`btn fw-semibold ${
                                         selectedClass === cls.id 
                                         ? 'btn-success shadow' 
-                                        : 'btn-outline-success'
+                                        : (theme === 'dark' ? 'btn-secondary' : 'btn-outline-success')
                                     }`}
                                 >
                                     {cls.label}
