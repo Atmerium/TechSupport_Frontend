@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import type { Part } from "../Interfaces/PartInterface";
+import { useTheme } from "../Context/ThemeContext";
 
 const Lexicon = () => {
   const navigate = useNavigate();
@@ -12,7 +13,6 @@ const Lexicon = () => {
     navigate(`/lexicon/${id}`);
   };
 
-  
   const fetchLexicon = async () => {
     try {
       const res = await fetch("http://localhost:3000/parts");
@@ -29,7 +29,7 @@ const Lexicon = () => {
       setSearched(categories);
     } else {
       const tempArray = categories.filter((part) =>
-        part.partName.toLowerCase().includes(search.toLowerCase())
+        part.partName.toLowerCase().includes(search.toLowerCase()),
       );
       setSearched(tempArray);
     }
@@ -43,20 +43,37 @@ const Lexicon = () => {
     fetchLexicon();
   }, []);
 
+  const { theme } = useTheme();
+
   return (
     <>
       <div className="p-3 p-md-5 mb-4 bg-body-tertiary border-secondary rounded">
         <div className="container-fluid py-5">
-          <h1 className="display-5 fw-bold">Lexikon</h1>
-          <p className="col-md-8 fs-4">
-            Ebben a szakaszban megtalálsz egy részletes leíratot a számítógépek
-            legfontosabb alkatrészeiről és azok funkcióiról.
-          </p>
+          <div className="row align-items-center">
+            <div className="col-md-8">
+              <h1 className="display-5 fw-bold">Lexikon</h1>
+              <p className="fs-4">
+                Ebben a szakaszban megtalálsz egy részletes leíratot a
+                számítógépek legfontosabb alkatrészeiről és azok funkcióiról.
+              </p>
+            </div>
+
+            <div className="col-md-4 text-center ">
+              <img
+                src="./src/Pics/lexikon.png"
+                alt="Lexikon ikon"
+                className={`img-fluid rounded-4 ${theme === "dark" ? "bg-white p-2" : ""}`}
+                style={{ maxHeight: "250px", width: "auto" }}
+              />
+            </div>
+          </div>
         </div>
-        <div className="container-fluid ">
+
+        <div className="container-fluid">
           <input
             type="text"
-            placeholder="⌕Keresés..."
+            className="form-control w-50"
+            placeholder="⌕ Keresés..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -74,10 +91,14 @@ const Lexicon = () => {
                       style={{ cursor: "pointer" }}
                       onClick={() => handleCardClick(part.partId)}
                     >
-                      <img 
+                      <img
                         src={`./src/Pics/${part.partId}.jpg`}
-                        className="card-img-top mt-2 mb-3 rounded-3 border border-secondary"  
-                        style={{ height: "250px", width: "250px", textAlign: "center" }}
+                        className="card-img-top mt-2 mb-3 rounded-4 border border-secondary d-block mx-auto"
+                        style={{
+                          height: "250px",
+                          width: "250px",
+                          objectFit: "cover",
+                        }}
                       />
                       <div className="card-body bg-body-tertiary">
                         <h5 className="card-title">{part.partName}</h5>
