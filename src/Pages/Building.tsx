@@ -142,7 +142,7 @@ const Building = () => {
                                     <button 
                                         className="btn btn-primary mt-3"
                                         onClick={() => navigate(`/comments/${selectedBuild.buildId}`)}>
-                                        Megjelenítés
+                                        Kommentek megtekintése
                                     </button>
                                 </div>
                             ) : (
