@@ -55,7 +55,6 @@ const Lexicon = () => {
         </div>
         <div className="container-fluid ">
           <input
-            className=""
             type="text"
             placeholder="⌕Keresés..."
             value={search}
@@ -69,12 +68,17 @@ const Lexicon = () => {
             if (part.partVisible != false) {
               return (
                 <>
-                  <div key={part.partId} className="col-md-6 mb-3">
+                  <div key={part.partId} className="col-md-6 mb-3 ">
                     <div
-                      className="card h-100 bg-body-tertiary border border-secondary rounded"
+                      className="card h-100 bg-body-tertiary border border-secondary p-3 rounded "
                       style={{ cursor: "pointer" }}
                       onClick={() => handleCardClick(part.partId)}
                     >
+                      <img 
+                        src={`./src/Pics/${part.partId}.jpg`}
+                        className="card-img-top mt-2 mb-3 rounded-3 border border-secondary"  
+                        style={{ height: "250px", width: "250px", textAlign: "center" }}
+                      />
                       <div className="card-body bg-body-tertiary">
                         <h5 className="card-title">{part.partName}</h5>
                         <p className="card-text">{part.partDescription}</p>

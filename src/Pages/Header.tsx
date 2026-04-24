@@ -11,7 +11,7 @@ const Header = () => {
 
     return (
         <header>
-            <nav className="navbar navbar-expand-lg py-2" data-bs-theme="dark" style={{ backgroundColor: theme === 'dark' ? '#343a40' : 'gray', color: theme === 'dark' ? 'white' : 'white' }}>
+            <nav className="navbar navbar-expand-lg py-2" data-bs-theme="dark" style={{ backgroundColor: theme === 'dark' ? '#343a40' : '#767c88', color: theme === 'dark' ? 'white' : 'white' }}>
                 <div className="container-fluid">
                     <button className="navbar-brand fs-4 btn btn-link" onClick={() => navigate('/')}>
                         <img src={logo} alt="Project Logo" width="70" height="70" className="d-inline-block align-middle me-2" />
@@ -26,10 +26,10 @@ const Header = () => {
                                 <button className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} onClick={() => navigate('/')}>Főoldal</button>
                             </li>
                             <li className="nav-item">
-                                <button className={`nav-link ${location.pathname === '/lexicon' ? 'active' : ''}`} onClick={() => navigate('/lexicon')}>Lexicon</button>
+                                <button className={`nav-link ${location.pathname === '/lexicon' ? 'active' : ''}`} onClick={() => navigate('/lexicon')}>Lexikon</button>
                             </li>
                             <li className="nav-item">
-                                <button className={`nav-link ${location.pathname === '/building' ? 'active' : ''}`} onClick={() => navigate('/building')}>Gép Összeállítás</button>
+                                <button className={`nav-link ${location.pathname === '/building' ? 'active' : ''}`} onClick={() => navigate('/building')}>GépÖsszeállítás</button>
                             </li>
                             {isLoggedIn ? (
                                 <>

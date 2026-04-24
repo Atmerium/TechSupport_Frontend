@@ -56,7 +56,7 @@ const Building = () => {
     }
 
     return (
-        <div className="container mt-4">
+        <div className="container mt-4 p-4 rounded shadow" style={{ backgroundColor: '#767c88', color: 'white' }}>
             <h2 className="mb-4 text-center">Számítógép Összeállítás</h2>
             <div className="row justify-content-center mb-5">
                 <div className="col-md-8">

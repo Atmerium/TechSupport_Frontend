@@ -63,7 +63,7 @@ const Comments = () => {
 
         const newCommentPayload = {
             commentContent: newComment,
-            userId: Number(cookies.user?.userId),
+            userId: Number(cookies.user?.id),
             buildId: Number(buildId)
         };
 
