@@ -45,7 +45,6 @@ const Profile = ({
     setError(null);
   };
 
-
   const handleSave = async () => {
     setIsLoading(true);
     setError(null);
@@ -97,7 +96,6 @@ const Profile = ({
       setIsLoading(false);
     }
   };
-
 
   const fetchUsers = async () => {
     setIsLoadingUsers(true);
@@ -192,7 +190,7 @@ const Profile = ({
         {error && <div className="alert alert-danger mt-3">{error}</div>}
 
         <div className="row align-items-center mt-4">
-          <div className="col-md-8 fs-4">
+          <div className="col-lg-8 col-md-7 order-2 order-md-1 fs-4">
             <div className="mb-3">
               <label htmlFor="userName" className="form-label">
                 Felhasználónév:
@@ -212,7 +210,7 @@ const Profile = ({
                 Email:
               </label>
               <input
-                type="text"
+                type="email"
                 className="form-control"
                 id="userEmail"
                 value={currentEmail}
@@ -222,12 +220,18 @@ const Profile = ({
             </div>
           </div>
 
-          <div className="col-md-4 text-center">
+          <div className="col-lg-4 col-md-5 order-1 order-md-2 text-center mb-4 mb-md-0">
             <img
               src="./src/Pics/Profile.png"
               alt="Profilkép"
-              className="img-fluid rounded-block shadow"
-              style={{ maxWidth: "300px", border: "5px solid white" }}
+              className="img-fluid rounded shadow"
+              style={{
+                width: "100%",
+                maxWidth: "250px",
+                height: "auto",
+                border: "5px solid white",
+                objectFit: "cover",
+              }}
             />
           </div>
         </div>
@@ -353,7 +357,6 @@ const Profile = ({
         </div>
       )}
     </div>
-   
   );
 };
 

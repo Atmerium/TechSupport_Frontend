@@ -54,7 +54,7 @@ const Welcome = ({ userName }: WelcomeProps) => {
                 <a href="https://github.com/Kende28">Yamakawa Kende</a>
               </li>
               <li>
-                <a href="#">Almási Bence</a>
+                <a href="https://github.com/LemonIcecreamUwU">Almási Bence</a>
               </li>
             </ul>
           </p>
