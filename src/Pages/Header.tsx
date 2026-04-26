@@ -11,7 +11,7 @@ const Header = () => {
 
     return (
         <header>
-            <nav className="navbar navbar-expand-lg py-2" data-bs-theme="dark" style={{ backgroundColor: theme === 'dark' ? '#343a40' : '#767c88', color: theme === 'dark' ? 'white' : 'white' }}>
+            <nav className="navbar navbar-expand-lg py-2" data-bs-theme="dark" style={{ backgroundColor: theme === 'dark' ? '#282b2e' : '#767c88', color: theme === 'dark' ? 'white' : 'white' }}>
                 <div className="container-fluid">
                     <button className="navbar-brand fs-4 btn btn-link" onClick={() => navigate('/')}>
                         <img src={logo} alt="Project Logo" width="70" height="70" className="d-inline-block align-middle me-2" />

@@ -10,7 +10,7 @@ const Layout = () => {
             <main className="container mt-4 flex-shrink-0" >
                 <Outlet />
             </main>
-            <footer className="footer mt-auto py-3" style={{ backgroundColor: theme === 'dark' ? '#343a40' : '#767c88', color: theme === 'dark' ? 'white' : 'white' }}>
+            <footer className="footer mt-auto py-3" style={{ backgroundColor: theme === 'dark' ? '#282b2e' : '#767c88', color: theme === 'dark' ? 'white' : 'white' }}>
                 <div className="container text-center">
                     <span>© 2025 <a href="https://github.com/Atmerium/TechSupport_Frontend">TechSupport</a>. All rights reserved.</span>
                 </div>
